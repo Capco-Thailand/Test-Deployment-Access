@@ -13,6 +13,15 @@ jobs:
     environment: sandbox
 
     steps:
+      - name: Check Azure configuration
+        env:
+          CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+        run: |
+          test -n "$CLIENT_ID" || { echo "::error::AZURE_CLIENT_ID is empty"; exit 1; }
+          test -n "$TENANT_ID" || { echo "::error::AZURE_TENANT_ID is empty"; exit 1; }
+          test -n "$SUBSCRIPTION_ID" || { echo "::error::AZURE_SUBSCRIPTION_ID is empty"; exit 1; }
       - name: Sign in to Azure with OIDC
         uses: azure/login@v3
         with:
