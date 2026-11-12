@@ -10,7 +10,7 @@ permissions:
 jobs:
   test-login:
     runs-on: ubuntu-latest
-    environment: sandbox
+    environment: test
 
     steps:
       - name: Check Azure configuration
